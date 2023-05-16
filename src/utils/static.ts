@@ -7,4 +7,9 @@ interface QuestionContent {
   }[];
 }
 
-export type { QuestionContent };
+interface AnswerContent {
+  id?: Number;
+  answers: Number[];
+}
+
+export type { QuestionContent, AnswerContent };
