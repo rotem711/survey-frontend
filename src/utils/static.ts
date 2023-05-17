@@ -9,7 +9,11 @@ interface QuestionContent {
 
 interface AnswerContent {
   id?: Number;
-  answers: Number[];
+  question_text?: String;
+  answers: {
+    option_id: Number;
+    option_text?: String;
+  }[];
 }
 
 export type { QuestionContent, AnswerContent };

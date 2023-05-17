@@ -34,7 +34,7 @@ const Question: FC<{ block: QuestionProps }> = ({ block }) => {
   return (
     <>
       <h1>{question}</h1>
-      <FormGroup>
+      <FormGroup sx={{ mt: 5 }}>
         {options.map((option: any) => (
           <FormControlLabel
             control={<Checkbox />}
@@ -43,8 +43,8 @@ const Question: FC<{ block: QuestionProps }> = ({ block }) => {
             onChange={(e) => onCheck(e, option.id)}
           />
         ))}
-        <Button variant="contained" onClick={onClickSubmit}>
-          Submit
+        <Button variant="contained" sx={{ mt: 5 }} onClick={onClickSubmit}>
+          Next
         </Button>
       </FormGroup>
     </>

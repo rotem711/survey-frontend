@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { getQuestionList } from "../api/modules/question";
 import Question from "../components/question/question";
@@ -15,11 +16,15 @@ const Home: FC = () => {
     setLoading(true);
     try {
       const res = await getQuestionList(payload);
-      setQuestion({
-        id: res.data.id,
-        question: res.data.attributes.question,
-        options: res.data.attributes.options,
-      });
+      if (res.data) {
+        setQuestion({
+          id: res.data.id,
+          question: res.data.attributes.question,
+          options: res.data.attributes.options,
+        });
+      } else {
+        setQuestion(undefined);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -34,10 +39,14 @@ const Home: FC = () => {
   };
 
   const onSubmit = async (answers: Array<Number>) => {
-    console.log(question?.id, answers);
+    const answerOptions = answers.map((item) => ({
+      option_id: item,
+      option_text: question?.options.find((option) => option.id === item)?.text,
+    }));
     const payload = {
       id: question?.id,
-      answers,
+      question_text: question?.question,
+      answers: answerOptions,
     };
     loadData(payload);
   };
@@ -55,12 +64,18 @@ const Home: FC = () => {
       <Container maxWidth="md">
         {question && !loading && <Question block={{ ...question, onSubmit }} />}
         {loading && (
-          <div>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <CircularProgress />
-          </div>
+          </Box>
         )}
         {!question && !loading && (
-          <p>You completed our quiz! Please wait for the result!</p>
+          <h2>You completed our quiz! We are preparing new questions!</h2>
         )}
       </Container>
     </>
