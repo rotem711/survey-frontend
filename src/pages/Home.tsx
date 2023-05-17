@@ -75,7 +75,7 @@ const Home: FC = () => {
           </Box>
         )}
         {!question && !loading && (
-          <h2>You completed our survey! We are preparing new questions!</h2>
+          <h2>We are preparing new questions.</h2>
         )}
       </Container>
     </>
