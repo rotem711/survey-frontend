@@ -12,6 +12,7 @@ REACT_APP_API_DOMAIN=http://localhost:1337
 ```
 
 You can get api token from strapi backend and set it as  REACT_APP_API_TOKEN.
+
 REACT_APP_API_DOMAIN is your strapi backend url.
 
 And then in the project directory, please run:
